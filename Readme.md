@@ -1,3 +1,9 @@
+<!-- default file list -->
+*Files to look at*:
+
+* [Main.cs](./CS/LinqServerMode/Main.cs) (VB: [Main.vb](./VB/LinqServerMode/Main.vb))
+* [Program.cs](./CS/LinqServerMode/Program.cs) (VB: [Program.vb](./VB/LinqServerMode/Program.vb))
+<!-- default file list end -->
 # How to bind LinqInstantFeedbackSource to GridControl 
 
 
