@@ -3,17 +3,47 @@
 [![](https://img.shields.io/badge/Open_in_DevExpress_Support_Center-FF7200?style=flat-square&logo=DevExpress&logoColor=white)](https://supportcenter.devexpress.com/ticket/details/E2805)
 [![](https://img.shields.io/badge/📖_How_to_use_DevExpress_Examples-e9f6fc?style=flat-square)](https://docs.devexpress.com/GeneralInformation/403183)
 <!-- default badges end -->
-<!-- default file list -->
-*Files to look at*:
+
+# WinForms Data Grid - Bind to a queryable source (LinqInstantFeedbackSource) 
+
+This example shows how to bind the WinForms Data Grid to [LinqInstantFeedbackSource](https://docs.devexpress.com/CoreLibraries/DevExpress.Data.Linq.LinqInstantFeedbackSource).
+
+Set the [LinqInstantFeedbackSource.KeyExpression](https://docs.devexpress.com/CoreLibraries/DevExpress.Data.Linq.LinqInstantFeedbackSource.KeyExpression) property to a key property name.
+
+```csharp
+linqInstantFeedbackSource.KeyExpression = "SupplierID";
+```
+
+Handle the [LinqInstantFeedbackSource.GetQueryable](https://docs.devexpress.com/CoreLibraries/DevExpress.Data.Linq.LinqInstantFeedbackSource.GetQueryable) event. Set the `e.QueryableSource` property.
+
+```csharp
+void OnGetQueryable(object sender, GetQueryableEventArgs e) {
+    NorthwindClassesDataContext dt = new NorthwindClassesDataContext();
+    e.QueryableSource = dt.Suppliers;
+    e.Tag = dt;  
+}
+```
+
+Handle the [LinqInstantFeedbackSource.DismissQueryable](https://docs.devexpress.com/CoreLibraries/DevExpress.Data.Linq.LinqInstantFeedbackSource.DismissQueryable) event to dispose of a `DataContext` object when it is no longer required.
+
+```csharp
+void OnDismissQueryable(object sender, GetQueryableEventArgs e) {
+    (e.Tag as NorthwindClassesDataContext).Dispose();
+}
+```
+
+Bind `LinqInstantFeedbackSource` to the Grid control.
+
+```csharp
+gridControl1.DataSource = linqInstantFeedbackSource;
+```
+
+
+## Files to Review
 
 * [Main.cs](./CS/LinqServerMode/Main.cs) (VB: [Main.vb](./VB/LinqServerMode/Main.vb))
-* [Program.cs](./CS/LinqServerMode/Program.cs) (VB: [Program.vb](./VB/LinqServerMode/Program.vb))
-<!-- default file list end -->
-# How to bind LinqInstantFeedbackSource to GridControl 
 
 
-<p>This example illustrates how to assign <strong>LinqInstantFeedbackSource</strong> to a grid. </p><p>To accomplish this, it is necessary to set the <a href="http://documentation.devexpress.com/#CoreLibraries/DevExpressDataLinqLinqInstantFeedbackSource_KeyExpressiontopic"><u>LinqInstantFeedbackSource.KeyExpression property</u></a>  to a key property name.  Next, you should handle the  <a href="http://documentation.devexpress.com/#CoreLibraries/DevExpressDataLinqLinqInstantFeedbackSource_GetQueryabletopic"><u>LinqInstantFeedbackSource.GetQueryable event</u></a> and set the ee.QueryableSource property to assign your queryable source to LinqInstantFeedbackSource. Also, handle the <a href="http://documentation.devexpress.com/#CoreLibraries/DevExpressDataLinqLinqInstantFeedbackSource_DismissQueryabletopic"><u>LinqInstantFeedbackSource.DismissQueryable event</u></a> to dispose of a DataContext object when it is no longer required. Finally, bind LinqInstantFeedbackSource to the grid by setting the <a href="http://documentation.devexpress.com/#WindowsForms/DevExpressXtraGridGridControl_DataSourcetopic"><u>GridControl.DataSource property</u></a> .</p>
+## See Also
 
-<br/>
-
-
+* [Large Data Sources: Server and Instant Feedback Modes](https://docs.devexpress.com/WindowsForms/8398/controls-and-libraries/data-grid/data-binding/large-data-sources-server-and-instant-feedback-modes)
